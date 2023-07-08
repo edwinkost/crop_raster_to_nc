@@ -105,7 +105,7 @@ def main():
                 # ~ os.system(cmd)
                 
                 # crop to the latlonbox
-                nco_sellonlatbox(nc_file = target_file_name, lat_range = lat_range, lon_range = lon_range, nc_out_file = "")
+                nco_sellonlatbox(nc_file = target_file_name, lat_range = lat_range, lon_range = lon_range, nc_out_file = target_file_name + ".cropped")
                 
 
             elif target_file_name.endswith(".map"):  
