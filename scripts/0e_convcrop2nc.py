@@ -8,11 +8,13 @@ import shutil
 import pcraster_to_netcdf as pcr2nc
 
 
-def nco_sellonlatbox(nc_file, lat_range, lon_range, nc_out_file):
+def nco_sellonlatbox(nc_file, lat_range, lon_range, overwrite_nc_file = True, nc_out_file = None):
     
     msg = 'Crop the file ' +  nc_file + "using one of the following commands: \n"
     print(msg) 
 
+    if nc_out_file is None: nc_out_file = nc_file + ".cropped"
+    
     # - using one of the following command lines, depending on variable names of lat/latitude and lon/longitude 
     cmd_line = "ncks -D 2 -O -d latitude," + lat_range + " -d longitude," + lon_range + " " + nc_file + " " + nc_out_file
     print(cmd_line)
@@ -20,6 +22,10 @@ def nco_sellonlatbox(nc_file, lat_range, lon_range, nc_out_file):
     cmd_line = "ncks -D 2 -O -d lat," + lat_range + " -d lon," + lon_range + " " + nc_file + " " + nc_out_file
     print(cmd_line)
     os.system(cmd_line)
+    
+    if overwrite_nc_file:
+        os.remove(nc_file)
+        os.rename(nc_out_file, nc_file)	
     
 
 def main():
@@ -105,7 +111,7 @@ def main():
                 # ~ os.system(cmd)
                 
                 # crop to the latlonbox
-                nco_sellonlatbox(nc_file = target_file_name, lat_range = lat_range, lon_range = lon_range, nc_out_file = target_file_name + ".cropped")
+                nco_sellonlatbox(nc_file = target_file_name, lat_range = lat_range, lon_range = lon_range)
                 
 
             elif target_file_name.endswith(".map"):  
@@ -142,7 +148,7 @@ def main():
             
 
                 # crop to the latlonbox
-                nco_sellonlatbox(nc_file = target_file_name, lat_range = lat_range, lon_range = lon_range, nc_out_file = target_file_name + ".cropped")
+                nco_sellonlatbox(nc_file = target_file_name, lat_range = lat_range, lon_range = lon_range)
 
             else:
                 
