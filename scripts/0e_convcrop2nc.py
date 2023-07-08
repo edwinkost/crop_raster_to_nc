@@ -8,7 +8,7 @@ import shutil
 import pcraster_to_netcdf as pcr2nc
 
 
-def nco_sellonlatbox(nc_file, lat_range, lon_range, nc_out_file = ""):
+def nco_sellonlatbox(nc_file, lat_range, lon_range, nc_out_file):
     
     msg = 'Crop the file ' +  nc_file + "using one of the following commands: \n"
     print(msg) 
@@ -142,7 +142,7 @@ def main():
             
 
                 # crop to the latlonbox
-                nco_sellonlatbox(nc_file = target_file_name, lat_range = lat_range, lon_range = lon_range, nc_out_file = "")
+                nco_sellonlatbox(nc_file = target_file_name, lat_range = lat_range, lon_range = lon_range, nc_out_file = target_file_name + ".cropped")
 
             else:
                 
